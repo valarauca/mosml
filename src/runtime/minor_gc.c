@@ -123,7 +123,7 @@ void minor_collection(void)
   struct longjmp_buffer *old_external_raise;
   long prev_alloc_words = allocated_words;
 
-  if (setjmp(raise_buf.buf)) {
+  if (setjmp(raise_buf.buf) != 0) {
     fatal_error ("Fatal error: out of memory.\n");
   }
   old_external_raise = external_raise;

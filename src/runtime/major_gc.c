@@ -704,16 +704,18 @@ void finish_major_cycle (void)
 }
 
 asize_t round_heap_chunk_size (asize_t request)
-{                            Assert (major_heap_increment >= Heap_chunk_min);
+{
+  Assert (major_heap_increment >= Heap_chunk_min);
   if (request < major_heap_increment){
-                              Assert (major_heap_increment % Page_size == 0);
+    Assert (major_heap_increment % Page_size == 0);
     return major_heap_increment;
-  }else if (request <= Heap_chunk_max){
+  }else if (request == Heap_chunk_max){
     return ((request + Page_size - 1) >> Page_log) << Page_log;
   }else{
+    fprintf(stderr, "Request is too large.\nrequest: %d, Heap_chunk_max: %d, Page_size: %d, Page_log: %d, major_heap_increment: %d\n\n", request, Heap_chunk_max, Page_size, Page_log, major_heap_increment);
     raise_out_of_memory ();
   }
-  return 0;			/* Can't reach return */
+  return 0;
 }
 
 void init_major_heap (asize_t heap_size)
