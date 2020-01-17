@@ -1,7 +1,7 @@
 # Unix configuration Makefile for Moscow ML          -*- mode: makefile -*-
 
 # Where to install stuff
-PREFIX=/usr/local
+PREFIX=/home/valarauca/Documents/mosml_output
 
 # BINDIR contains true executable files, such as scripts
 # LIBDIR contains bytecode files (such as mosmlcmp and library units), and .dll/.so for dynlibs. 
@@ -228,4 +228,4 @@ MOSMLDEP=$(ROOTDIR)/camlrunm $(ROOTDIR)/mosmldep
 	$(MOSMLLEX) $<
 
 .c.o:
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c -O3 -foptimize-register-move -mtune=native -march=native $(CFLAGS) -o $@ $<

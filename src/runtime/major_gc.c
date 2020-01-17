@@ -712,7 +712,7 @@ asize_t round_heap_chunk_size (asize_t request)
   }else if (request == Heap_chunk_max){
     return ((request + Page_size - 1) >> Page_log) << Page_log;
   }else{
-    fprintf(stderr, "Request is too large.\nrequest: %d, Heap_chunk_max: %d, Page_size: %d, Page_log: %d, major_heap_increment: %d\n\n", request, Heap_chunk_max, Page_size, Page_log, major_heap_increment);
+    fprintf(stderr, "Request is too large.\nrequest: %llu, Heap_chunk_max: %llu, Page_size: %llu, Page_log: %llu, major_heap_increment: %llu\n\n", request, Heap_chunk_max, Page_size, Page_log, major_heap_increment);
     raise_out_of_memory ();
   }
   return 0;
