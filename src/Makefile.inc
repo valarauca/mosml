@@ -66,6 +66,7 @@ UNAME_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
 # we had "elif" things would have been much nicer...
 
 ifeq ($(UNAME_S),Linux)
+	ADDRUNCFLAGS=-O3 -mtune=native -march=native -malign-data=cacheline -falign-functions=16 -falign-labels=16 -falign-loops=16 -falign-jumps=16
 	CPP=cpp -P -traditional -Dunix -Umsdos
 	STRIP=strip -S
 	LD=gcc -rdynamic -Wl,-rpath,$(LIBDIR)
@@ -228,4 +229,4 @@ MOSMLDEP=$(ROOTDIR)/camlrunm $(ROOTDIR)/mosmldep
 	$(MOSMLLEX) $<
 
 .c.o:
-	$(CC) -c -O3 -foptimize-register-move -mtune=native -march=native $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
