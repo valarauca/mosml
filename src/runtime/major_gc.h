@@ -4,6 +4,7 @@
 
 #include "freelist.h"
 #include "misc.h"
+#include <stdio.h>
 
 typedef struct {
   asize_t size;

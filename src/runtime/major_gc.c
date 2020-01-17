@@ -29,7 +29,7 @@
 #endif
 
 int percent_free;
-long major_heap_increment;
+unsigned long long major_heap_increment;
 char *heap_start, *heap_end;
 char *page_table;
 asize_t page_table_size;
@@ -709,7 +709,7 @@ asize_t round_heap_chunk_size (asize_t request)
   if (request < major_heap_increment){
     Assert (major_heap_increment % Page_size == 0);
     return major_heap_increment;
-  }else if (request == Heap_chunk_max){
+  }else if (request <= Heap_chunk_max){
     return ((request + Page_size - 1) >> Page_log) << Page_log;
   }else{
     fprintf(stderr, "Request is too large.\nrequest: %llu, Heap_chunk_max: %llu, Page_size: %llu, Page_log: %llu, major_heap_increment: %llu\n\n", request, Heap_chunk_max, Page_size, Page_log, major_heap_increment);

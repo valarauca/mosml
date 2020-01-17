@@ -3,7 +3,7 @@
 OPTS=-DTHREADED
 include ../Makefile.inc
 
-BASECFLAGS= -Dunix -O3 $(OPTS)
+BASECFLAGS= -Dunix -O3 -mtune=native -march=native $(OPTS)
 
 ifeq ($(UNAME_S),Cross_W32)
 	BASECFLAGS= -Dunix -DCAMLRT -DWIN32 -D_CONSOLE -D_MBCS -O3 $(OPTS)
