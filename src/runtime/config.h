@@ -58,18 +58,13 @@ typedef char schar;
 #define Page_log 12             /* A page is 4 kilobytes. */
 
 /* Initial sizes of stacks (bytes). */
-#define Stack_size 32768
+#define Stack_size (1l << 20)
 
 /* Minimum free size of stacks (bytes); below that, they are reallocated. */
-#define Stack_threshold 2048
+#define Stack_threshold 4096
 
 /* Maximum sizes for the stacks (bytes). */
-   
-#ifdef MINIMIZE_MEMORY
-#define Max_stack_size 262144
-#else
-#define Max_stack_size 1048576
-#endif
+#define Max_stack_size (1l << 32)
 
 /* Maximum size of a block allocated in the young generation (words). */
 /* Must be > 4 */
@@ -83,7 +78,7 @@ typedef char schar;
 /* Maximum size of the minor zone (words).
    Must be greater than or equal to [Minor_heap_min].
 */
-#define Minor_heap_max (1 << 28)
+#define Minor_heap_max (1l << 33)
 
 /* Default size of the minor zone. (words)  */
 #define Minor_heap_def 32768
@@ -131,14 +126,14 @@ typedef char schar;
 
 #define Page_log 10
 #define Stack_size 32768
-#define Stack_threshold 2048
-#define Max_stack_size 1048576
+#define Stack_threshold 4096
+#define Max_stack_size (1 << 30)
 #define Max_young_wosize 256
 #define Minor_heap_min 1024
-#define Minor_heap_max (1 << 28)
+#define Minor_heap_max (1 << 32)
 #define Minor_heap_def 16384
 #define Heap_chunk_min (2 * Page_size / sizeof (value))
-#define Heap_chunk_max (1 << 28)
+#define Heap_chunk_max (1 << 32)
 #define Heap_chunk_def (126 * Page_size / sizeof (value))
 #define Percent_free_def 20
 

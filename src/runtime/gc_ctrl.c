@@ -6,8 +6,9 @@
 #include "minor_gc.h"
 #include "mlvalues.h"
 #include "memory.h"
+#include <stdint.h>
 
-long stat_minor_words = 0,
+unsigned long long stat_minor_words = 0,
      stat_promoted_words = 0,
      stat_major_words = 0,
      stat_minor_collections = 0,
@@ -122,7 +123,7 @@ static int norm_pfree (int p)
   return p;
 }
 
-static long norm_heapincr (long i)
+static unsigned long long norm_heapincr (unsigned long long i)
 {
   i = ((i + (1 << Page_log) - 1) >> Page_log) << Page_log;
   if (i < Heap_chunk_min) i = Heap_chunk_min;
@@ -130,7 +131,7 @@ static long norm_heapincr (long i)
   return i;
 }
 
-static long norm_minsize (long s)
+static unsigned long long norm_minsize (unsigned long long s)
 {
   if (s < Minor_heap_min) s = Minor_heap_min;
   if (s > Minor_heap_max) s = Minor_heap_max;
@@ -185,7 +186,7 @@ value gc_full_major (value v) /* ML */
   return Atom (0);
 }
 
-void init_gc (long minor_size, long major_incr, int percent_fr, int verb)
+void init_gc (unsigned long long minor_size, unsigned long long major_incr, int percent_fr, int verb)
 {
 #ifdef DEBUG
   gc_message ("*** camlrunm: debug mode ***\n", 0);

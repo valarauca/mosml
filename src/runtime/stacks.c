@@ -1,6 +1,7 @@
 /* To initialize and resize the stacks */
 
 #include <string.h>
+#include <stdio.h>
 #include "config.h"
 #include "fail.h"
 #include "misc.h"
@@ -32,8 +33,10 @@ void realloc_stack()
 
   Assert(extern_sp >= stack_low);
   size = stack_high - stack_low;
-  if (size >= Max_stack_size)
+  if (size >= Max_stack_size) {
+    fprintf(stderr, "static re-alloc to large. size:%llu stack_high:%llu stack_low:%llu Max_stack_size:%llu Stack_size:%llu Stack_threshold: %llu", size, stack_high, stack_low, Max_stack_size, Stack_size, Stack_threshold);
     raise_out_of_memory();
+  }
   size *= 2;
   gc_message ("Growing stack to %ld kB.\n",
 	      (long) size * sizeof(value) / 1024);
